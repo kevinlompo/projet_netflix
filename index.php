@@ -62,6 +62,10 @@
                 header('location: index.php?success=1');
                 exit();
             }
+            elseif ($user['blocked'] == 1){
+                header('location: index.php?error=1&message=Impossible de vous authentifier correctement, car vous avez été bloqué.');
+                exit();
+            }
             else {
                 header('location: index.php?error=1&message=Impossible de vous authentifier correctement.');
                 exit();
