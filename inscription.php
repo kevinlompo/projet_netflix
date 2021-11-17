@@ -31,12 +31,23 @@ if(isset($_SESSION['connect'])){
             exit();
         }
 
+          // PSEUDO DEJA UTILISEE
+          $req = $db->prepare('SELECT COUNT (*) AS numberPseudo FROM user WHERE pseudo = ?');
+          $req->execute(array($pseudo));
+  
+          while($pseudo_verification = $req->fetch()){
+              if($pseudo_verification['numberPseudo'] != 0){
+                  header('location: inscription.php?error=1&message=Votre pseudo est deja utilise par un autre utilisateur.');
+                  exit();
+              }
+          }
+
         // EMAIL DEJA UTILISEE
         $req = $db->prepare('SELECT COUNT (*) AS numberEmail FROM user WHERE email = ?');
         $req->execute(array($email));
 
         while($email_verification = $req->fetch()){
-            if($email_verification['numberEmail'] !=0){
+            if($email_verification['numberEmail'] != 0){
                 header('location: inscription.php?error=1&message=Votre adresse email est deja utilisee par un autre utilisateur.');
                 exit();
             }
