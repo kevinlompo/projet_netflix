@@ -43,12 +43,12 @@ if(isset($_SESSION['connect'])){
         }
 
         // EMAIL DEJA UTILISEE
-        $req = $db->prepare('SELECT COUNT (*) AS numberEmail FROM user WHERE email = ?');
+        $req = $db->prepare('SELECT COUNT(*) AS numberEmail FROM user WHERE email = ?');
         $req->execute(array($email));
 
         while($email_verification = $req->fetch()){
             if($email_verification['numberEmail'] != 0){
-                header('location: inscription.php?error=1&message=Votre adresse email est deja utilisée par un autre utilisateur.');
+                header('location: inscription.php?error=1&message=Votre adresse mail est deja utilisé par un autre utilisateur.');
                 exit();
             }
         }
